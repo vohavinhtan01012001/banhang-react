@@ -9,6 +9,7 @@ import { RootState, useAppDispatch } from 'store'
 import { useSelector } from 'react-redux'
 import { showOrderOfUser } from 'api/client/orderClient.api'
 import ButtonCusTom from 'component/button'
+import { logOut } from 'slice/admin/auth.slice'
 
 function Account() {
   const user = useSelector((state: RootState) => state.orderClient.user)
@@ -25,7 +26,10 @@ function Account() {
     }
   }, [dispatch])
 
-  const logoutSubmit = (e: any) => {}
+  const logoutSubmit = (e: any) => {
+    dispatch(logOut())
+    history('/')
+  }
 
   return (
     <React.Fragment>

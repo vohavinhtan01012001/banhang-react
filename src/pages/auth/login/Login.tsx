@@ -20,8 +20,11 @@ function Login() {
     validationSchema: signInValidationSchema,
     onSubmit: (values) => {
       dispatch(login(values)).then((action: any) => {
-        if (action.payload?.statusCode === 1) {
+        if (action.payload?.user.role === 1) {
           navigate('/admin')
+          window.location.reload()
+        } else if (action.payload?.user.role === 2) {
+          navigate('/')
         }
       })
     }

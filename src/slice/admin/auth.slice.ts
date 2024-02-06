@@ -61,7 +61,11 @@ const initialState: UserState = {
 const userSlice = createSlice({
   name: 'user',
   initialState,
-  reducers: {},
+  reducers: {
+    logOut: () => {
+      Cookies.remove('accessToken')
+    }
+  },
   extraReducers(builder) {
     builder
       .addCase(register.fulfilled, (state, action) => {
@@ -122,7 +126,7 @@ const userSlice = createSlice({
       .addCase(checkAdmin.rejected, (state, action: any) => {
         state.checkAdmin = false
       })
-     /*  .addMatcher<PendingAction>(
+    /*  .addMatcher<PendingAction>(
         (action) => action.type.endsWith('/pending'),
         (state, action) => {
           state.loading = true
@@ -141,7 +145,7 @@ const userSlice = createSlice({
   }
 })
 
-/* export const {} = userSlice.actions */
+export const { logOut } = userSlice.actions
 
 const userReducer = userSlice.reducer
 export default userReducer

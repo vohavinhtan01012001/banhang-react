@@ -47,3 +47,4 @@ export const checkAdmin = createAsyncThunk('auth/checkAdmin', async (_, thunkAPI
     return thunkAPI.rejectWithValue(error.response.data)
   } */
 })
+
