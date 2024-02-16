@@ -74,7 +74,7 @@ export const showOrderOfUser = createAsyncThunk('order/showOrderOfUser', async (
 
 export const showOrderItemOfOrder = createAsyncThunk('order/showOrderItemOfOrder', async (id: number, thunkAPI) => {
   try {
-    const response = await http<{ orders: OrderItem[] }>({
+    const response = await http<{ orders: OrderItem[]; checkRadings: boolean }>({
       url: `order/client/show-orderItem/${id}`,
       method: 'GET',
       signal: thunkAPI.signal
@@ -85,3 +85,6 @@ export const showOrderItemOfOrder = createAsyncThunk('order/showOrderItemOfOrder
     return thunkAPI.rejectWithValue(error.response.data)
   }
 })
+
+
+

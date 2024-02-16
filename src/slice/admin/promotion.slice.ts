@@ -1,4 +1,4 @@
-import { AsyncThunk, createSlice } from '@reduxjs/toolkit'
+import { AsyncThunk, createSlice, AnyAction } from '@reduxjs/toolkit'
 import {
   addProductInPromotion,
   addPromotion,
@@ -11,6 +11,7 @@ import {
   updatePromotion,
   updateStatusPromotion
 } from 'api/admin/promotion.api'
+import { stat } from 'fs'
 import { toast } from 'react-toastify'
 import { Product } from 'types/product.type'
 import { Promotion } from 'types/promotion.type'
@@ -26,6 +27,7 @@ interface PromotionState {
   promotionList: Promotion[]
   productListOfPromotion: Product[]
   status: Status
+  statusProduct: number | null
   edittingPromotion: Promotion | null
   loading: boolean
   currentRequestId: undefined | string
@@ -38,6 +40,7 @@ const initialState: PromotionState = {
     statusCode: 0,
     message: ''
   },
+  statusProduct: null,
   edittingPromotion: null,
   loading: false,
   currentRequestId: undefined
@@ -71,6 +74,17 @@ const promotionSlice = createSlice({
         })
       })
       .addCase(updateStatusPromotion.fulfilled, (state, action) => {
+        if (state.loading && state.currentRequestId === action.meta.requestId) {
+          state.loading = false
+          state.currentRequestId = undefined
+        }
+
+        const index = state.promotionList.findIndex((promotion) => promotion.id === action.meta.arg.promotionId)
+
+        if (index !== -1) {
+          state.promotionList[index].status = state.promotionList[index].status === 1 ? 0 : 1
+        }
+
         toast.success(action.payload.status.message, {
           position: toast.POSITION.TOP_RIGHT
         })

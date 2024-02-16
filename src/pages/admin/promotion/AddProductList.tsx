@@ -36,7 +36,6 @@ export default function AddProductList() {
       }
     }
   }
-
   const handleAllCheck = (e: any) => {
     if (e.target.checked === true) {
       const value: number[] = []

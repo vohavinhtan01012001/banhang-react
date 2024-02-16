@@ -4,6 +4,7 @@ import { Category } from 'types/category.type'
 import { Favourite } from 'types/favourite.type'
 import { Product } from 'types/product.type'
 import { Size } from 'types/size.type'
+import { Status } from 'types/status.type'
 import http from 'utils/http'
 
 export const getProductListPageHome = createAsyncThunk('productClient/getProductListPageHome', async (_, thunkAPI) => {
@@ -147,5 +148,24 @@ export const showFilterProduct = createAsyncThunk(
       signal: thunkAPI.signal
     })
     return response.data
+  }
+)
+export const updateRating = createAsyncThunk(
+  'product/updateRating',
+  async ({ userId, rate, productGroupId }: { userId: number; rate: number; productGroupId: number }, thunkAPI) => {
+    try {
+      const response = await http<{
+        status: Status
+        evaluate: { userId: number; rate: number; productGroupId: number }
+      }>({
+        url: `evaluate/client/add-evaluate`,
+        method: 'POST',
+        data: { userId, rate, productGroupId },
+        signal: thunkAPI.signal
+      })
+      return response.data
+    } catch (error: any) {
+      return thunkAPI.rejectWithValue(error.response.data)
+    }
   }
 )

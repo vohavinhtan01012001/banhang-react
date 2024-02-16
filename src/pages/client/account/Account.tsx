@@ -107,6 +107,10 @@ function Account() {
                           <p className='text-sm' style={{ color: '#0ccf0f', fontWeight: 'bold' }}>
                             Đã thanh toán
                           </p>
+                        ) : item.pay === 1 && item.delivery == 2 ? (
+                          <p className='text-sm' style={{ color: '#0ccf0f', fontWeight: 'bold' }}>
+                            Đã thanh toán
+                          </p>
                         ) : (
                           <p className='text-sm' style={{ color: 'red', fontWeight: 'bold' }}>
                             Chưa thanh toán

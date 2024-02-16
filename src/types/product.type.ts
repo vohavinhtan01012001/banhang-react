@@ -1,4 +1,5 @@
 import { Category } from './category.type'
+import { Promotion } from './promotion.type'
 import { Size } from './size.type'
 export interface Product {
   id: number
@@ -14,11 +15,15 @@ export interface Product {
   gender: number
   status: number
   categoryId: number
+  evaluate: number
+  favourite: number
+  sales: number
   Size: Size
   promotionId: number
   sizeId: number
   productGroupId: number
   Category: Category
+  Promotion: Promotion
 }
 
 export interface CreateProduct {

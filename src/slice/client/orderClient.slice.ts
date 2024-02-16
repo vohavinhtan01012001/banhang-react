@@ -11,17 +11,17 @@ import { toast } from 'react-toastify'
 import { User } from 'types/auth.type'
 import { Order, OrderItem } from 'types/order.type'
 import { Status } from 'types/status.type'
-
 type GenericAsyncThunk = AsyncThunk<unknown, unknown, any>
 
 type PendingAction = ReturnType<GenericAsyncThunk['pending']>
 type RejectedAction = ReturnType<GenericAsyncThunk['rejected']>
 type FulfilledAction = ReturnType<GenericAsyncThunk['fulfilled']>
-
 interface OrderClientState {
   order: Order[]
   user: User
   orderItem: OrderItem[]
+  checkRating: boolean
+  EvaluateRate: number
   status: Status | null
   loading: boolean
   currentRequestId: undefined | string
@@ -31,6 +31,8 @@ const initialState: OrderClientState = {
   status: null,
   loading: false,
   orderItem: [],
+  checkRating: false,
+  EvaluateRate: 0,
   currentRequestId: undefined,
   order: [],
   user: {
@@ -69,6 +71,7 @@ const orderClientSlice = createSlice({
       })
       .addCase(showOrderItemOfOrder.fulfilled, (state, action) => {
         state.orderItem = action.payload.orders
+        state.checkRating = action.payload.checkRadings
       })
   }
 })

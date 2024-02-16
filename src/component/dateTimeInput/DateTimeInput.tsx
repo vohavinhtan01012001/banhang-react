@@ -30,7 +30,7 @@ const DateTimeInput: React.FC<PropsDatetime> = ({ setDatetime, datetime }) => {
     <Space direction='vertical' size={12}>
       <RangePicker
         showTime
-        value={[dayjs(datetime[0], 'YYYY-MM-DD HH:mm:YY'), dayjs(datetime[1], 'YYYY-MM-DD HH:mm:YY')]}
+        value={[dayjs(datetime[0]), dayjs(datetime[1])]}
         onChange={(dates, dateStrings) =>
           handleOnChange(dates as [dayjs.Dayjs, dayjs.Dayjs], dateStrings as [string, string])
         }

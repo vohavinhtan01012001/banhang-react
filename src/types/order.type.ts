@@ -24,4 +24,5 @@ export interface OrderItem {
   orderId: number
   productId: number
   Product: Product
+  rate: number
 }

@@ -1,7 +1,8 @@
 import { faChevronRight } from '@fortawesome/free-solid-svg-icons'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import { showOrderItemOfOrder } from 'api/client/orderClient.api'
+import { showOrderItemOfOrder, showOrderOfUser } from 'api/client/orderClient.api'
 import CurrencyFormatter from 'component/currencyFormatter'
+import RatingStars from 'component/evaluate/RatingStars'
 import React, { useContext, useEffect, useState } from 'react'
 import { useSelector } from 'react-redux'
 import { Link, useNavigate, useParams } from 'react-router-dom'
@@ -10,6 +11,8 @@ import Swal from 'sweetalert2'
 function OrderItems() {
   const history = useNavigate()
   const orderItem = useSelector((state: RootState) => state.orderClient.orderItem)
+  const checkRating = useSelector((state: RootState) => state.orderClient.checkRating)
+  const order = useSelector((state: RootState) => state.orderClient.order)
   const dispatch = useAppDispatch()
   const { id } = useParams()
   useEffect(() => {
@@ -22,6 +25,13 @@ function OrderItems() {
       }
     }
   }, [dispatch, id])
+  useEffect(() => {
+    const promise = dispatch(showOrderOfUser())
+
+    return () => {
+      promise.abort()
+    }
+  }, [dispatch])
 
   return (
     <React.Fragment>
@@ -41,7 +51,7 @@ function OrderItems() {
             </div>
           </div>
           <h1 className='my-2 text-lg font-bold'>Danh sách chi tiết đơn hàng: {id}</h1>
-          <div className='grid grid-cols-3 gap-2'>
+          <div className='grid grid-cols-3 gap-3'>
             <div className='col-span-2'>
               {orderItem?.map((item, index) => {
                 return (
@@ -72,6 +82,13 @@ function OrderItems() {
                           </p>
                         </div>
                         <div className='cart__product--contentLeft'>
+                          {checkRating ? (
+                            <div>
+                              <RatingStars rate={item.rate} productGroupId={item.Product.productGroupId} />
+                            </div>
+                          ) : (
+                            ''
+                          )}
                           <p className='cart__product--money' style={{ color: '#333' }}>
                             {CurrencyFormatter(item.sumPrice)}
                           </p>

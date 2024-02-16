@@ -14,6 +14,7 @@ import { useNavigate } from 'react-router-dom'
 import AddPromotion from './AddPromotion'
 import EditPromotion from './EditPromotion'
 import SearchAdmin from 'component/search/SearchAdmin'
+import SelectStatusPromotion from 'component/selectStatus/SelectStatusPromotion'
 
 export default function ListPromotion() {
   const promotionList = useSelector((state: RootState) => state.promotion.promotionList)
@@ -191,7 +192,7 @@ export default function ListPromotion() {
                   <td className='px-6 py-4'>{<DateFormatter date={item.startDate} />}</td>
                   <td className='px-6 py-4'>{<DateFormatter date={item.endDate} />}</td>
                   <td className='px-6 py-4'>
-                    <SelectStatus status={item.status} id={item.id} onChange={handleEditStatus} />
+                    <SelectStatusPromotion status={item.status} id={item.id} onChange={handleEditStatus} />
                   </td>
                   <td className='px-6 py-4 text-right'>
                     <button onClick={() => history('list-product/' + item.id)}>
