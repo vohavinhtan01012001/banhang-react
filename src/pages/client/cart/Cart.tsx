@@ -62,7 +62,7 @@ export default function Cart() {
                         </div>
                         <div className='cart__order--paying' style={{ background: 'red', border: 'none' }}>
                           <button
-                            className='cart__order--link'
+                            className='cart__order--link '
                             style={{ color: 'white', width: '100%', background: 'red', border: 'none' }}
                             onClick={() => history('/pay')}
                           >

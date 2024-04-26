@@ -20,7 +20,7 @@ export default function ItemCart({ item, index }: PropsCart) {
     <nav key={index} className='cart__product--item'>
       <div>
         <Link to={`/${item.Category.name}/${item.id}`} className='cart__product--link'>
-          <img src={item.image} alt='' className='cart__product--img' />
+          <img src={item.image} alt='' className='cart__product--img rounded-2xl' />
         </Link>
       </div>
       <div className='cart__product--content'>
