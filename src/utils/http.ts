@@ -9,7 +9,7 @@ class Http {
     //   timeout: 50000
     // })
     this.instance = axios.create({
-      baseURL: 'http://localhost:5000/api/v1/',
+      baseURL: 'http://localhost:5001/api/v1/',
       timeout: 50000
     })
     const accessToken = Cookies.get('accessToken')
